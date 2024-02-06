@@ -1,0 +1,95 @@
+version: '3'
+services:
+  backend:
+    build:
+      args:
+        user: www-data
+        uid: 33
+      context: .
+    restart: always
+    container_name: backend_app
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_SESSION: VSCODE
+    extra_hosts:
+      - 'mysql_app:host-gateway'
+      - 'host.docker.internal:host-gateway'
+      - 'api-php.app.br:127.0.0.1'
+      - 'api-laravel.app.br:127.0.0.1'
+    volumes:
+      - ./app/backend/api-laravel:/var/www/api-laravel
+      - ./app/backend/api-php:/var/www/api-php
+      - ./docker/php/config/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ./docker/php/config/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/config/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./docker/php/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/conf.d/
+      # - ./app/frontend/dist/spa:/usr/share/nginx/html
+    ports:
+      - 80:80
+    networks:
+      - netLocal
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./app/frontend
+      target: develop
+    restart: always
+    container_name: frontend_app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app/frontend:/app:delegated
+      - /node_modules
+    networks:
+      - netLocal
+    depends_on:
+      - backend
+    environment:
+      - WATCHPACK_POLLING=true
+
+  db:
+    container_name: mysql_app
+    image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: sandbox
+      MYSQL_PASSWORD: 12345678
+    ports:
+      - '3306:3306'
+    volumes:
+      - './docker/db/data:/var/lib/mysql'
+      - './docker/db/my.cnf:/etc/mysql/conf.d/my.cnf'
+      - './docker/db/sql:/docker-entrypoint-initdb.d'
+    networks:
+      - netLocal
+
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: sandbox
+    links:
+      - db:db
+    networks:
+      - netLocal
+
+volumes:
+  MYSQL_VOLUME:
+    driver: local
+
+networks:
+  netLocal:
+    driver: bridge
