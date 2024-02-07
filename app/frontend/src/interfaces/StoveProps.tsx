@@ -1,0 +1,3 @@
+interface StoveProps{
+    colorProps: ColorProps;
+}

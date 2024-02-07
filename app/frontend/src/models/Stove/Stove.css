@@ -1,0 +1,285 @@
+.container-stove{
+    background-color: #0f98e7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 90vh;
+}
+
+.glass {
+    width: 27vh;
+    height: 8vh;
+    margin: 0;
+    position: relative;
+}
+  
+.glass::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: lightblue;
+    border: 5px solid #fff;
+    border-radius: 15px;
+    transform: perspective(200px) rotateX(30deg); /* this will do the trick */
+    margin:0;
+}
+
+.divider-glass{
+    background-color: #52575A;
+    width: 27vh;
+    height: 1vh;
+}
+
+.panel-burners{
+    border-bottom: 5vh solid #6F7476;
+	border-left: 5vh solid transparent;
+	border-right: 5vh solid transparent;
+	height: 0;
+	width: 37vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20%;
+}
+
+.burner-one{
+    background-color: lightgray;
+    width: 30%;
+    height: 1.5vh;
+    border-radius: 100%;
+    margin: 2%;
+}
+
+.burner-two{
+    background-color: lightgray;
+    width: 30%;
+    height: 1.5vh;
+    border-radius: 100%;
+    margin: 2%;
+}
+
+
+.burner-three{
+    background-color: lightgray;
+    width: 30%;
+    height: 1.5vh;
+    border-radius: 100%;
+    margin: 2%;
+}
+
+
+.burner-four{
+    background-color: lightgray;
+    width: 30%;
+    height: 1.5vh;
+    border-radius: 100%;
+    margin: 2%;
+}
+
+.panel-buttons{
+    width: 40vh;
+    height: 8vh;
+    background-color: #676C6E;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button-lamp-oven{
+    width: 3vh;
+    height: 3vh;
+    background-color: #641E16;
+    border-radius: 100%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button-burner-one{
+    width: 4vh;
+    height: 4vh;
+    border: 2px solid #fff;
+    background-color: lightgray;
+    border-radius: 100%;
+    cursor:pointer;
+}
+
+.button-burner-one::after{
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background-color: black;
+    opacity: 0.2;
+    transform: translate(160%, 0%);
+}
+
+.button-burner-two{
+    width: 4vh;
+    height: 4vh;
+    border: 2px solid #fff;
+    background-color: #0f98e7;
+    border-radius: 100%;
+    cursor:pointer;
+}
+
+.button-burner-two::after{
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background-color: black;
+    opacity: 0.2;
+    transform: translate(160%, 0%);
+}
+
+.button-burner-three{
+    width: 4vh;
+    height: 4vh;
+    border: 2px solid #fff;
+    background-color: red;
+    border-radius: 100%;
+    cursor:pointer;
+}
+
+.button-burner-three::after{
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background-color: black;
+    opacity: 0.2;
+    transform: translate(160%, 0%);
+}
+
+.button-burner-four{
+    width: 4vh;
+    height: 4vh;
+    border: 2px solid #fff;
+    background-color: orangered;
+    border-radius: 100%;
+    cursor:pointer;
+}
+
+.button-burner-four::after{
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background-color: black;
+    opacity: 0.2;
+    transform: translate(160%, 0%);
+}
+
+.button-burner-five{
+    width: 4vh;
+    height: 4vh;
+    border: 2px solid #fff;
+    background-color: violet;
+    border-radius: 100%;
+    cursor:pointer;
+}
+
+.button-burner-five::after{
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background-color: black;
+    opacity: 0.2;
+    transform: translate(160%, 0%);
+}
+
+.body-stove{
+    background-color: #ffffff;
+    width: 40vh;
+    height: 30vh;
+    border-radius: 20px;
+}
+
+.mark-stove{
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: -20px;
+    font-weight: bold;
+    color: orangered;
+    text-align: center;
+}
+
+.oven-stove{
+    background-color: lightgray;
+    width: 33vh;
+    height: 22vh;
+    border-radius: 15px;
+    margin: 10% auto;
+}
+
+.glass-oven{
+    background-color: lightblue;
+    width: 30vh;
+    height: 19vh;
+    border-radius: 15px;
+    margin: 0 auto;
+    border: 5px solid #fff;
+}
+
+.handle-oven{
+    background-color: #989FA2;
+    width: 16vh;
+    height: 2vh;
+    margin: 0 auto;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.divider-body-legs{
+    background-color: #52575A;
+    width: 35vh;
+    height: 1.5vh;
+}
+
+.base-legs{
+    background-color: #676C6E;
+    width: 40vh;
+    height: 9vh;
+    border-radius: 20px;
+}
+
+.legs{
+    display: flex;
+    width: 40vh;
+    justify-content: space-around;
+}
+
+.leg-one{
+    width: 3vh;
+    height: 2vh;
+    background-color: #52575A;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-right: 30%;
+}
+
+.leg-two{
+    width: 3vh;
+    height: 2vh;
+    background-color: #52575A;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-left: 30%;
+}
+
+.shadow{
+    background-color: black;
+    opacity: 0.1;
+    width: 45vh;
+    height: 2vh;
+    border-radius: 100%;
+}
