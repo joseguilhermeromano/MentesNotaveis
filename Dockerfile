@@ -41,7 +41,7 @@ RUN docker-php-ext-install zip simplexml pcntl gd fileinfo
 
 WORKDIR /var/www
 
-COPY --chown=www-data:www-data --chmod=775 ./app/backend .
+COPY ./app/backend .
 
 EXPOSE 9004
 
@@ -83,4 +83,4 @@ RUN apk --update add supervisor
 
 COPY ./docker/supervisor/supervisord.conf /etc/supervisord.conf
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD chmod -R 775 /var/www/ && chown -R www-data:www-data /var/www/ && /usr/bin/supervisord -c /etc/supervisord.conf

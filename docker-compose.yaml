@@ -50,6 +50,7 @@ services:
       - backend
     environment:
       - WATCHPACK_POLLING=true
+      - GENERATE_SOURCEMAP=false
 
   db:
     container_name: mysql_app
