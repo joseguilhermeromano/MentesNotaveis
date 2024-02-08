@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\StateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function () {
+    return response()->json([
+        'success' => 'Welcome to API Laravel - MentesNotáveis'
+    ]);
 });
+
+Route::get('/address', [AddressController::class, 'index']);
+Route::get('/address/{id}', [AddressController::class, 'show']);
+Route::post('/address', [AddressController::class, 'store']);
+Route::put('/address/{id}', [AddressController::class, 'update']);
+Route::delete('/address/{id}', [AddressController::class, 'destroy']);
+
+Route::get('/city', [CityController::class, 'index']);
+Route::get('/city/{id}', [CityController::class, 'show']);
+Route::get('/state', [StateController::class, 'index']);
+Route::get('/state/{id}', [StateController::class, 'show']);

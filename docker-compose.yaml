@@ -12,7 +12,6 @@ services:
       XDEBUG_MODE: debug
       XDEBUG_SESSION: VSCODE
     extra_hosts:
-      - 'mysql_app:host-gateway'
       - 'host.docker.internal:host-gateway'
       - 'api-php.app.br:127.0.0.1'
       - 'api-laravel.app.br:127.0.0.1'
@@ -33,33 +32,34 @@ services:
     depends_on:
       - db
 
-  frontend:
-    build:
-      context: ./app/frontend
-      target: develop
-    restart: always
-    container_name: frontend_app
-    ports:
-      - 3000:3000
-    volumes:
-      - ./app/frontend:/app:delegated
-      - /node_modules
-    networks:
-      - netLocal
-    depends_on:
-      - backend
-    environment:
-      - WATCHPACK_POLLING=true
-      - GENERATE_SOURCEMAP=false
+  # frontend:
+  #   build:
+  #     context: ./app/frontend
+  #     target: develop
+  #   restart: always
+  #   container_name: frontend_app
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./app/frontend:/app:delegated
+  #     - /node_modules
+  #   networks:
+  #     - netLocal
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     - WATCHPACK_POLLING=true
+  #     - GENERATE_SOURCEMAP=false
 
   db:
     container_name: mysql_app
     image: mysql:8.0
-    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: mysqld --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sandbox
       MYSQL_PASSWORD: 12345678
+      MYSQL_USER: dbuser
     ports:
       - '3306:3306'
     volumes:
@@ -71,19 +71,15 @@ services:
 
 
   phpmyadmin:
-    depends_on:
-      - db
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
       - 8081:80
     environment:
       PMA_HOST: db
-      MYSQL_USERNAME: root
+      MYSQL_USERNAME: dbuser
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: sandbox
-    links:
-      - db:db
     networks:
       - netLocal
 
